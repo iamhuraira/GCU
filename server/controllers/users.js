@@ -45,6 +45,7 @@ export const createUser = async (req, res) => {
     phoneNumber,
     designation,
     roles,
+    department,
   } = req.body;
 
   try {
@@ -64,6 +65,7 @@ export const createUser = async (req, res) => {
       phoneNumber,
       designation,
       roles,
+      department,
     });
 
     res.status(201).json({ result });
@@ -95,19 +97,13 @@ export const updateUser = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(_id))
     return res.status(404).send("No user with that id");
 
-  // if (!user.password || user.password.trim() === "") {
-  //   return res.status(400).send("Password is required");
-  // }
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    { ...user },
+    { new: true }
+  );
 
-  //   const hashedPassword = await bcrypt.hash(user.password, 12);
-
-  //   const updatedUser = await User.findByIdAndUpdate(
-  //     _id,
-  //     { ...user, password: hashedPassword, _id },
-  //     { new: true }
-  //   );
-
-  //   res.json(updatedUser);
+  res.json(updatedUser);
 };
 
 export const deleteUser = async (req, res) => {

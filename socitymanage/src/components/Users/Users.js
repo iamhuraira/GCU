@@ -37,7 +37,7 @@ const Users = (props) => {
     },
     { title: 'Name', field: 'name' },
     { title: 'Username', field: 'username' },
-    { title: 'Password', field: 'password' },
+    // { title: 'Password', field: 'password' },
     { title: 'Email', field: 'email' },
     { title: 'CNIC', field: 'cnic' },
     { title: 'Phone No.', field: 'phoneNumber' },
@@ -69,8 +69,8 @@ const Users = (props) => {
     setIserror,
     setErrorMessages
   ) => {
-    // const fields = { ...newData, __v: true };
-    const fields = { ...newData };
+    const fields = { ...newData, __v: true };
+    // const fields = { ...newData };
     let noError = validations(fields, resolve, 'update');
     // console.log('newData', json.stringify(newData));
     //   console.log('oldData', oldData._id);
