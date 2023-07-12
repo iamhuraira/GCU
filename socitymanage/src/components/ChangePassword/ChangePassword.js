@@ -23,7 +23,16 @@ const ChangePassword = () => {
                 if (formData.newPassword !== formData.confirmPassword) {
                     setErrorMessage('Please enter same password in "New Password" and "Confirm New Password" fields.')
                 } else {
-                    dispatch(updateUser(user.result._id, { ...user.result, password: formData.newPassword }))
+                    const hashedPassword = bcrypt.hashSync(
+                      formData.newPassword,
+                      12
+                    );
+                    dispatch(
+                      updateUser(user.result._id, {
+                        ...user.result,
+                        password: hashedPassword,
+                      })
+                    );
                     setErrorMessage('')
                     setFormData(initialState)
                     localStorage.setItem('profile', JSON.stringify({ ...user, result: { ...user.result, password: bcrypt.hashSync(formData.newPassword, 12) } }))

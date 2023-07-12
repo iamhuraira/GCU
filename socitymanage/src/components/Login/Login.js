@@ -1,28 +1,37 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 // import { useHistory } from 'react-router-dom';
-import './Login.css'
+import './Login.css';
 
-import { login } from '../../actions/auth'
+import { login } from '../../actions/auth';
 import { SnackbarProvider, enqueueSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const initialState = { username: '', password: '' }
+const initialState = { username: '', password: '' };
 
 const Login = () => {
-    const dispatch = useDispatch()
-    // const history = useHistory();
-  const [formData, setFormData] = useState(initialState)
-  const [error, setError] = useState({})
-  const count = useRef(0);
+  const dispatch = useDispatch();
+  // const history = useHistory();
+  const [formData, setFormData] = useState(initialState);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-        
-    const error = await dispatch(login(formData))
+    e.preventDefault();
+
+    const error = await dispatch(login(formData));
+    
+    if (error === 'Invalid credentials') { 
+       navigate('/');
+       enqueueSnackbar('Invalid credentials', {
+         variant: 'success',
+         anchorOrigin: {
+           vertical: 'top',
+           horizontal: 'center',
+         },
+       });
+    }
     if (error === undefined) {
-      navigate('/')
+      navigate('/');
       enqueueSnackbar('Logged In Successfully', {
         variant: 'success',
         anchorOrigin: {
@@ -39,15 +48,14 @@ const Login = () => {
           horizontal: 'center',
         },
       });
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
-   
- 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   // useEffect(() => {
   //   if (localStorage.getItem('LoginError')) {
   //     // history.push('/');
@@ -62,36 +70,44 @@ const Login = () => {
   //   }
   // }, [error]);
 
+  return (
+    <form className="login-form" onSubmit={handleSubmit}>
+      <SnackbarProvider />
+      <div className="login-box">
+        <div className="dim-bg"></div>
+        <h2>GCU Society Hub</h2>
+        <input
+          className="input-field"
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Username"
+          onChange={handleChange}
+        />
+        <input
+          className="input-field"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          onChange={handleChange}
+        />
 
-    return (
-      <form className="login-form" onSubmit={handleSubmit}>
-        <SnackbarProvider />
-        <div className="login-box">
-          <div className="dim-bg"></div>
-          <h2>GCU Society Hub</h2>
-          <input
-            className="input-field"
-            type="text"
-            name="username"
-            id="username"
-            placeholder="Username"
-            onChange={handleChange}
-          />
-          <input
-            className="input-field"
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            onChange={handleChange}
-          />
-
-          <button className="submit-btn" type="submit">
-            Log In
-          </button>
+        <button className="submit-btn" type="submit">
+          Log In
+        </button>
+        <div>
+          <span>
+            Don't have an account?{' '}
+            <Link to="/SignUp">
+              <span className="login">Sign up</span>
+            </Link>{' '}
+            here!
+          </span>
         </div>
-      </form>
-    );
-}
+      </div>
+    </form>
+  );
+};
 
-  export default Login
+export default Login;
