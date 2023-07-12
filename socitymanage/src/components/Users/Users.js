@@ -9,7 +9,7 @@ import {
 
 import DataPage from '../DataPage/DataPage.js';
 import Avatar from '@mui/material/Avatar';
-import { json } from 'react-router-dom';
+
 
 const Users = (props) => {
   let data = [];

@@ -14,6 +14,7 @@ export const getPosts = async (req, res) => {
 export const getOnePost = async (req, res) => {
   try {
     const postID = req.params.id;
+    console.log(postID);
     const postMessages = await PostMessage.findById(postID);
 
     res.status(200).json(postMessages);
@@ -61,4 +62,15 @@ export const deletePost = async (req, res) => {
   await PostMessage.findByIdAndRemove(id);
 
   res.json({ message: "Post deleted successfully!" });
+};
+
+export const departmentBasedPost = async (req, res) => {
+  const { department } = req.params;
+
+  const result = await PostMessage.find({ department: department });
+
+  if (result.length === 0)
+    return res.status(404).send("No post with that department");
+
+  res.json(result);
 };

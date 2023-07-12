@@ -8,11 +8,13 @@ export const login = (formData) => async (dispatch) => {
         dispatch({ type: AUTH, data })
 
         window.location.href = '/';
+        
     } catch (error) {
 
         localStorage.setItem('LoginError', error.response.data.message);
 
         console.log(error.response.data.message)
+        return error.response.data.message
     }
 }
 

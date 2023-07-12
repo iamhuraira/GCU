@@ -6,7 +6,7 @@ import './User.css'
 const User = (props) => {
     return (
         <div className="nav-user__info">
-            <Avatar>{props.username.charAt(0)}</Avatar>
+            <Avatar>{props?.username?.charAt(0)}</Avatar>
             <h4 className="nav-user__name">{props.username}</h4>
         </div>
     )

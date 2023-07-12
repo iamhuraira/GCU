@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 // import { useHistory } from 'react-router-dom';
 import './Login.css';
 import { createUser } from '../../actions/users.js';
+import { useNavigate } from 'react-router-dom';
 
 // import { login } from '../../actions/auth';
 
@@ -38,8 +39,7 @@ const signUpSchema = Yup.object({
 
 const Signup = () => {
   const dispatch = useDispatch();
-  // const history = useHistory();
-  const [formData, setFormData] = useState(initialState);
+  const navigate = useNavigate();
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -50,6 +50,7 @@ const Signup = () => {
 
         dispatch(createUser(values));
         action.resetForm();
+        navigate('/login');
       },
     });
 

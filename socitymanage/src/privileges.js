@@ -15,3 +15,12 @@ export const isSupport = () => {
         return false
     }
 }
+
+export const isUser = () => { 
+    const user = JSON.parse(localStorage.getItem('profile'))
+    if (user?.result) {
+        return true
+    } else{
+        return false
+    }
+}
