@@ -4,13 +4,15 @@ import Feed from './Feed/Feed'
 import Chatbot from '../Chatbot/Chatbot.js'
 import './Home.css'
 
+
 const Home = () => {
    
     return (
         <div className="home">
             <Nav />
             <Feed />
-            <Chatbot />
+            <Chatbot />  {/* <Bot/> */}
+            
         </div>
     )
 }
