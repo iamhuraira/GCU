@@ -20,7 +20,9 @@ const Nav = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:7000/posts/se');
+        const response = await fetch(
+          `http://localhost:7000/posts/${user.result.department}`
+        );
         const jsonData = await response.json();
         // console.log(jsonData);
         setPosts(jsonData);
@@ -103,7 +105,7 @@ const Nav = () => {
                     <Avatar>{post.user_name.charAt(0)}</Avatar>
                     <div className="desc">
                       <p>
-                        <strong>{post.user_name} </strong>
+                        <strong>{post.user_name} { " "} </strong>
                         created a post.
                       </p>
                       <p>

@@ -16,7 +16,8 @@
 .nav-logo-span {
     font-size: 2em;
     font-weight: bold;
-    font-family: 'Fuggles', cursive;
+    /* font-family: 'Fuggles', cursive; */
+    font-family: 'Roboto', sans-serif;
     cursor: pointer;
 }
 

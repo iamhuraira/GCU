@@ -52,7 +52,7 @@ const Posts = ({ setCurrentId }) => {
             );
           }
 
-          return true;
+          {/* return true; */}
         })}
     </div>
   );
